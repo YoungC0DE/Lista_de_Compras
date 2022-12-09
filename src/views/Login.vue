@@ -65,7 +65,7 @@ export default {
   methods: {
     Login() {
       axios
-        .get(`${this.BASE_API}/usuarios/list`)
+        .post(`${this.BASE_API}/usuarios/login`, this.data)
         .then((resp) => {
           console.log(resp);
         })
