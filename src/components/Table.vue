@@ -14,7 +14,7 @@
         </thead>
         <tbody>
           <tr v-if="dados == null">
-            <td colspan="6">Carregando...</td>
+            <td colspan="6">-</td>
           </tr>
           <tr
             scope="row"
@@ -64,7 +64,7 @@ export default {
       return n % 2 === 0 ? "par" : "";
     },
     deletarProduto(id) {
-      console.log('delet')
+      console.log("delet");
       // axios
       //   .get(this.BASE_API + "/produtos/delete/id")
       //   .then(({ data }) => {
@@ -113,6 +113,8 @@ tbody {
 .wrapper {
   max-height: 400px;
   overflow-y: auto;
+  border-radius: 2px;
+  margin-bottom: 10px;
   border: 2px solid rgb(57, 67, 90);
   border-bottom-width: 4px;
 }

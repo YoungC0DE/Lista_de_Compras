@@ -24,7 +24,7 @@
           :Type="'button'"
           :Name="'SendData'"
           :Value="'Acessar'"
-          v-on:click="Login()"
+          v-on:click="Login"
         />
       </form>
       <span class="register">
@@ -64,14 +64,15 @@ export default {
   },
   methods: {
     Login() {
+      //this.redirecionar();
       axios
-        .post(`${this.BASE_API}/usuarios/login`, this.data)
+        .post(`${this.BASE_API}/usuarios/login`, '', this.data)
         .then((resp) => {
           console.log(resp);
+          this.redirecionar();
         })
         .catch((err) => {
           console.log(err);
-          console.log(this.dados);
         });
     },
   },

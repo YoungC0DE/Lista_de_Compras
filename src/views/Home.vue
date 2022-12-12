@@ -1,61 +1,60 @@
 <template>
   <div class="section">
     <div class="main">
+      <TableComponent />
+      <div class="valor_total">
+        Valor Total = <b>R$ {{ total }}</b>
+      </div>
       <div class="add_prod_form">
         <InputComponent
-          :Type="'text'"
-          :Name="'NovoProduto'"
-          :Placeholder="'Produto'"
-          :Required="true"
-        />
-        <InputComponent
-          :Type="'number'"
-          :Min="0"
-          :Name="'NovoProduto'"
-          :Placeholder="'Quantidade'"
-          :Required="true"
-        />
-        <InputComponent
-          :Type="'text'"
-          :Name="'NovoProduto'"
-          :Placeholder="'Medida'"
-          :Required="true"
-        />
-        <InputComponent
-          :Type="'number'"
-          :Min="0"
-          :Name="'NovoProduto'"
-          :Placeholder="'Valor'"
-          :Required="true"
+          :Type="'button'"
+          :Name="'NewProduct'"
+          :Value="'Adicionar'"
+          v-on:click="showModal"
         />
         <InputComponent
           :Type="'button'"
-          :Name="'NovoProduto'"
-          :Value="'Adicionar'"
+          :Name="'Exit'"
+          :Value="'Sair'"
+          v-on:click="logout"
         />
       </div>
-
-      <TableComponent />
-      <div class="valor_total">Valor Total: R$ {{ total }}</div>
     </div>
+  </div>
+  <div v-if="openModal">
+    <ModalProduto />
   </div>
 </template>
 
 <script>
 import TableComponent from "@/components/Table.vue";
 import InputComponent from "@/components/Input.vue";
+import ModalProduto from "@/components/ModalProduto.vue";
+import { useRouter } from "vue-router";
+import verifyToken from "@/assets/VerifyToken.js";
 import axios from "axios";
 
 export default {
   name: "Home",
-  components: { TableComponent, InputComponent },
+  components: { TableComponent, InputComponent, ModalProduto },
   data() {
     return {
       BASE_API: "https://produtosconsulta2.000webhostapp.com",
       total: null,
+      openModal: false,
+    };
+  },
+  setup() {
+    const router = useRouter();
+    const sair = () => router.push({ name: "Login" });
+    return {
+      sair,
     };
   },
   methods: {
+    showModal() {
+      this.openModal = true;
+    },
     getTotal() {
       axios
         .get(`${this.BASE_API}/produtos/total`)
@@ -66,9 +65,13 @@ export default {
           console.log(err);
         });
     },
+    logout() {
+      this.sair();
+    },
   },
   mounted() {
     this.getTotal();
+    if (!verifyToken());
   },
 };
 </script>
@@ -88,7 +91,7 @@ export default {
   width: auto;
   text-align: center;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
   flex-wrap: wrap;
   align-items: center;
 }
@@ -96,12 +99,21 @@ export default {
   padding: 10px 30px;
   border: 1px solid #46586c;
   border-radius: 2px;
-  box-shadow: 0px 0px 10px 0px #46586c;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8em;
+  box-shadow: 0px 0px 5px 0px #46586c;
 }
 
 .add_prod_form {
   display: flex;
   flex-direction: row;
-  gap: 2px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.add_prod_form button {
+  padding: 5px 10px;
 }
 </style>
