@@ -10,7 +10,7 @@
           :Type="'button'"
           :Name="'NewProduct'"
           :Value="'Adicionar'"
-          v-on:click="showModal"
+          v-on:click="showModal(true)"
         />
         <InputComponent
           :Type="'button'"
@@ -21,7 +21,14 @@
       </div>
     </div>
   </div>
-  <div v-if="openModal">
+  <div class="backdrop" v-if="openModal">
+    <InputComponent
+      class="closebtn"
+      :Type="'button'"
+      :Name="'close'"
+      :Value="'fechar (X)'"
+      v-on:click="showModal(false)"
+    />
     <ModalProduto />
   </div>
 </template>
@@ -52,8 +59,8 @@ export default {
     };
   },
   methods: {
-    showModal() {
-      this.openModal = true;
+    showModal(val) {
+      this.openModal = val;
     },
     getTotal() {
       axios
@@ -115,5 +122,25 @@ export default {
 
 .add_prod_form button {
   padding: 5px 10px;
+}
+
+.backdrop {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.475);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+}
+
+.backdrop .closebtn {
+  position: absolute;
+  top: 30px;
+  right: 480px;
+  background-color: #38516c !important;
+  padding: 5px;
+  z-index: 2;
 }
 </style>
