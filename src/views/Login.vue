@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       BASE_API: "https://produtosconsulta2.000webhostapp.com",
+      BASE_API2: "http://localhost/api_produtos_php",
     };
   },
   setup() {
@@ -64,12 +65,11 @@ export default {
   },
   methods: {
     Login() {
-      //this.redirecionar();
       axios
-        .post(`${this.BASE_API}/usuarios/login`, '', this.data)
+        .post(`${this.BASE_API2}/usuarios/login`, this.data)
         .then((resp) => {
           console.log(resp);
-          this.redirecionar();
+          //this.redirecionar();
         })
         .catch((err) => {
           console.log(err);

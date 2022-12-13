@@ -11,25 +11,28 @@
           :Type="'text'"
           :Name="'Nome'"
           :Placeholder="'Nome de usuário'"
+          v-model="data.nome"
           :Required="true"
         />
         <InputComponent
           :Type="'email'"
           :Name="'Email'"
           :Placeholder="'E-mail'"
+          v-model="data.email"
           :Required="true"
         />
         <InputComponent
           :Type="'password'"
           :Name="'Password'"
           :Placeholder="'Senha'"
+          v-model="data.senha"
           :Required="true"
         />
         <InputComponent
           :Type="'button'"
           :Name="'SendData'"
           :Value="'Cadastrar'"
-          v-on:click="Login()"
+          v-on:click="Register()"
         />
       </form>
       <span class="register">
@@ -42,24 +45,45 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
+import { reactive } from "@vue/reactivity";
+import { useRouter } from "vue-router";
 import InputComponent from "../components/Input.vue";
+import axios from "axios";
 
 export default {
   name: "Register",
   components: { InputComponent },
   setup() {
     const router = useRouter();
-    const redirecionar = () => router.push({ name: "Login" })
+    const redirecionar = () => router.push({ name: "Login" });
+    const data = reactive({
+      email: null,
+      senha: null,
+    });
     return {
-      redirecionar
-    }
+      redirecionar,
+      data,
+    };
+  },
+  data() {
+    return {
+      BASE_API: "https://produtosconsulta2.000webhostapp.com",
+    };
   },
   methods: {
-    Login() {
-      this.redirecionar()
-    }
-  }
+    Register() {
+      console.log(this.data);
+      axios
+        .post(`${this.BASE_API}/usuarios/register`, "", this.data)
+        .then((resp) => {
+          console.log(resp);
+          this.redirecionar();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 

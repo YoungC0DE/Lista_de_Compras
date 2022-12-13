@@ -10,6 +10,7 @@
       :max="Max"
       :required="Required"
       @input="updateValue"
+      @change="updateValue"
     />
     <span>{{ Placeholder }}</span>
   </div>
@@ -20,6 +21,7 @@
       :value="Value"
       :required="Required"
       @input="updateValue"
+      @change="updateValue"
     />
     <span>{{ Placeholder }}</span>
   </div>
@@ -29,6 +31,7 @@
       :name="Name"
       :required="Required"
       @input="updateValue"
+      @change="updateValue"
     />
     <span>{{ Placeholder }}</span>
   </div>
@@ -38,6 +41,7 @@
       :name="Name"
       :required="Required"
       @input="updateValue"
+      @change="updateValue"
     />
     <span>{{ Placeholder }}</span>
   </div>
