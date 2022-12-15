@@ -36,9 +36,9 @@
         />
       </form>
       <span class="register">
-        Não possui cadastro?
-        <router-link to="/register">Clique aqui</router-link>
-        para se cadastrar!
+        Já possui cadastro?
+        <router-link to="/">Clique aqui</router-link>
+        para se logar!
       </span>
     </div>
   </div>
@@ -67,14 +67,15 @@ export default {
   },
   data() {
     return {
-      BASE_API: "https://produtosconsulta2.000webhostapp.com",
+      BASE_API: "http://apiprodutosphp.dev.br",
+      BASE_API2: "http://localhost/api_produtos_php",
     };
   },
   methods: {
     Register() {
       console.log(this.data);
       axios
-        .post(`${this.BASE_API}/usuarios/register`, "", this.data)
+        .post(`${this.BASE_API2}/usuarios/register`, this.data)
         .then((resp) => {
           console.log(resp);
           this.redirecionar();

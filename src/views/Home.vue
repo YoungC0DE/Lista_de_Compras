@@ -3,7 +3,7 @@
     <div class="main">
       <TableComponent />
       <div class="valor_total">
-        Valor Total = <b>R$ {{ total }}</b>
+        Valor Total = <b v-if="total != null">R$ {{ total }}</b>
       </div>
       <div class="add_prod_form">
         <InputComponent
@@ -46,14 +46,18 @@ export default {
   components: { TableComponent, InputComponent, ModalProduto },
   data() {
     return {
-      BASE_API: "https://produtosconsulta2.000webhostapp.com",
+      BASE_API: "http://apiprodutosphp.dev.br",
+      BASE_API2: "http://localhost/api_produtos_php",
       total: null,
       openModal: false,
     };
   },
   setup() {
     const router = useRouter();
-    const sair = () => router.push({ name: "Login" });
+    const sair = () => {
+      verifyToken("", "CLEAR");
+      router.push({ name: "Login" });
+    };
     return {
       sair,
     };
@@ -63,8 +67,9 @@ export default {
       this.openModal = val;
     },
     getTotal() {
+      const id = window.localStorage.getItem("id");
       axios
-        .get(`${this.BASE_API}/produtos/total`)
+        .get(`${this.BASE_API2}/produtos/total/${id}`)
         .then(({ data }) => {
           this.total = data.dados[0].total;
         })
@@ -78,7 +83,7 @@ export default {
   },
   mounted() {
     this.getTotal();
-    if (!verifyToken());
+    if (!window.localStorage.getItem("id")) this.sair();
   },
 };
 </script>

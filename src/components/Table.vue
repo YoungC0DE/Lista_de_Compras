@@ -34,14 +34,14 @@
                 :Name="'delete'"
                 :Value="'Excluir'"
                 class="delete_btn"
-                v-on:click="deletarProduto(index)"
+                v-on:click="deletarProduto(dado.id)"
               />
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <span class="count">Total de Items: {{ items }}</span>
+    <span class="count" v-if="items != null">Total de Items: {{ items }}</span>
   </div>
 </template>
 
@@ -54,7 +54,8 @@ export default {
   components: { InputComponent },
   data() {
     return {
-      BASE_API: "https://produtosconsulta2.000webhostapp.com",
+      BASE_API: "http://apiprodutosphp.dev.br",
+      BASE_API2: "http://localhost/api_produtos_php",
       dados: null,
       items: null,
     };
@@ -63,23 +64,23 @@ export default {
     isPar(n) {
       return n % 2 === 0 ? "par" : "";
     },
-    deletarProduto(id) {
-      console.log("delet");
-      // axios
-      //   .get(this.BASE_API + "/produtos/delete/id")
-      //   .then(({ data }) => {
-      //     console.log('Produto deletado!')
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+    async deletarProduto(id) {
+      const resp = await axios.delete(
+        `${this.BASE_API2}/produtos/delete/${id}`
+      );
+      if (resp.data.message == "Produto deletado!") window.location.reload();
     },
     getAllProducts() {
+      const id = window.localStorage.getItem("id");
       axios
-        .get(`${this.BASE_API}/produtos/list`)
+        .get(`${this.BASE_API2}/produtos/list/${id}`)
         .then(({ data }) => {
-          this.items = data.dados.length;
-          this.dados = data.dados;
+          try {
+            this.items = data.dados.length;
+            this.dados = data.dados;
+          } catch {
+            console.log("Nenhum dado para ser retornado.");
+          }
         })
         .catch((err) => {
           console.log(err);

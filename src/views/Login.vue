@@ -39,7 +39,8 @@
 <script>
 import { reactive } from "@vue/reactivity";
 import { useRouter } from "vue-router";
-import InputComponent from "../components/Input.vue";
+import VerifyToken from "@/assets/VerifyToken.js";
+import InputComponent from "@/components/Input.vue";
 import axios from "axios";
 
 export default {
@@ -47,7 +48,7 @@ export default {
   components: { InputComponent },
   data() {
     return {
-      BASE_API: "https://produtosconsulta2.000webhostapp.com",
+      BASE_API: "http://apiprodutosphp.dev.br",
       BASE_API2: "http://localhost/api_produtos_php",
     };
   },
@@ -67,9 +68,9 @@ export default {
     Login() {
       axios
         .post(`${this.BASE_API2}/usuarios/login`, this.data)
-        .then((resp) => {
-          console.log(resp);
-          //this.redirecionar();
+        .then(({ data }) => {
+          VerifyToken(data.dados[0], "SAVE");
+          if (data.code === 200) this.redirecionar();
         })
         .catch((err) => {
           console.log(err);
