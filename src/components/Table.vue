@@ -55,7 +55,6 @@ export default {
   data() {
     return {
       BASE_API: "http://apiprodutosphp.dev.br",
-      BASE_API2: "http://localhost/api_produtos_php",
       dados: null,
       items: null,
     };
@@ -66,14 +65,14 @@ export default {
     },
     async deletarProduto(id) {
       const resp = await axios.delete(
-        `${this.BASE_API2}/produtos/delete/${id}`
+        `${this.BASE_API}/produtos/delete/${id}`
       );
       if (resp.data.message == "Produto deletado!") window.location.reload();
     },
     getAllProducts() {
       const id = window.localStorage.getItem("id");
       axios
-        .get(`${this.BASE_API2}/produtos/list/${id}`)
+        .get(`${this.BASE_API}/produtos/list/${id}`)
         .then(({ data }) => {
           try {
             this.items = data.dados.length;
@@ -94,78 +93,5 @@ export default {
 </script>
 
 <style scoped>
-table {
-  border-radius: 2px;
-  border-spacing: 0 !important;
-}
-thead {
-  background-color: rgb(57, 67, 90);
-}
-
-tbody {
-  margin-top: 20px;
-}
-
-.count {
-  display: flex;
-  color: #46586c;
-}
-
-.wrapper {
-  max-height: 400px;
-  overflow-y: auto;
-  border-radius: 2px;
-  margin-bottom: 10px;
-  border: 2px solid rgb(57, 67, 90);
-  border-bottom-width: 4px;
-}
-
-.delete_btn,
-.delete_btn:hover,
-.delete_btn:focus {
-  padding: 5px;
-}
-
-.delete_btn:hover {
-  border-color: rgb(194, 43, 43);
-  color: rgb(194, 43, 43);
-}
-
-.par {
-  background: rgba(57, 67, 90, 0.306);
-}
-
-th,
-td {
-  padding: 12px 20px;
-  text-align: center;
-}
-th {
-  padding: 15px 20px;
-  position: sticky;
-  top: 0px;
-  background-color: rgb(57, 67, 90);
-}
-
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
-* {
-  scrollbar-width: auto;
-  scrollbar-color: #7083b08e transparent;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 5px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #7083b08e;
-  border-radius: 2px;
-  border: 2px solid transparent;
-}
+@import "@/assets/table.css";
 </style>

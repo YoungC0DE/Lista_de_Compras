@@ -68,14 +68,13 @@ export default {
   data() {
     return {
       BASE_API: "http://apiprodutosphp.dev.br",
-      BASE_API2: "http://localhost/api_produtos_php",
     };
   },
   methods: {
     Register() {
       console.log(this.data);
       axios
-        .post(`${this.BASE_API2}/usuarios/register`, this.data)
+        .post(`${this.BASE_API}/usuarios/register`, this.data)
         .then((resp) => {
           console.log(resp);
           this.redirecionar();
@@ -89,77 +88,5 @@ export default {
 </script>
 
 <style scoped>
-.main {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 50%;
-  text-align: center;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.main form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: 50%;
-}
-
-.title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.title h1::selection {
-  background-color: transparent;
-}
-
-.title h1 {
-  position: relative;
-  color: transparent;
-  font-size: 4vw;
-  font-weight: bolder;
-  -webkit-text-stroke: 0.5px #46586c;
-}
-
-.title h1::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  color: #00dfc4;
-  -webkit-text-stroke: 0px #46586c;
-  border-right: 3px solid #00dfc4;
-  overflow: hidden;
-  white-space: nowrap;
-  animation: animate 4s linear;
-}
-
-.section {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-a {
-  text-decoration: none;
-  color: #00dfc4;
-}
-
-@keyframes animate {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
-}
+@import "@/assets/register.css";
 </style>

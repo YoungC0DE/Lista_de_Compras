@@ -1,0 +1,28 @@
+main {
+  position: relative;
+  padding: 20px;
+  border-radius: 2px;
+  background: #1d2b3a;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  flex-wrap: wrap;
+  width: 25%;
+  gap: 20px;
+}
+
+main input,
+main button {
+  background: #38516c !important;
+}
+
+main div {
+  width: 100%;
+}
+
+main .actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 5%;
+}
