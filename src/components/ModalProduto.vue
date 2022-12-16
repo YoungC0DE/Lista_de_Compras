@@ -40,7 +40,6 @@
 
 <script>
 import InputComponent from "@/components/Input.vue";
-import { useRouter } from "vue-router";
 import axios from "axios";
 
 export default {
@@ -61,13 +60,6 @@ export default {
       },
     };
   },
-  setup() {
-    const router = useRouter();
-    const redirecionar = () => router.push({ name: "Home" });
-    return {
-      redirecionar,
-    };
-  },
   methods: {
     Register() {
       const id = window.localStorage.getItem("id");
@@ -79,7 +71,6 @@ export default {
           this.data.quantidade = null;
           this.data.medida = null;
           this.data.valor = null;
-          window.location.reload();
           alert("dados adicionados!");
         })
         .catch((err) => {
