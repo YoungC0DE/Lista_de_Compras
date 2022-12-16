@@ -46,7 +46,7 @@ export default {
   components: { TableComponent, InputComponent, ModalProduto },
   data() {
     return {
-      BASE_API: "http://apiprodutosphp.dev.br",
+      BASE_API: "https://apiprodutosphp.dev.br",
       total: null,
       openModal: false,
     };

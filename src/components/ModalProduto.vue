@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      BASE_API: "http://apiprodutosphp.dev.br",
+      BASE_API: "https://apiprodutosphp.dev.br",
       openModal: this.show,
       data: {
         nome: null,

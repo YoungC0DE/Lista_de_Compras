@@ -48,7 +48,7 @@ export default {
   components: { InputComponent },
   data() {
     return {
-      BASE_API: "http://apiprodutosphp.dev.br",
+      BASE_API: "https://apiprodutosphp.dev.br",
     };
   },
   setup() {
